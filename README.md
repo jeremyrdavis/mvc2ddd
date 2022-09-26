@@ -1,3 +1,6 @@
+## Value Objects
+Java Records make great value objects
+
 # mvc2ddd Project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.

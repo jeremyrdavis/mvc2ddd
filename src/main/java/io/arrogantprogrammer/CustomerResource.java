@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
@@ -16,15 +17,22 @@ public class CustomerResource {
 
 
     @GET
-    public List<Customer> allCustomers() {
+    public List<CustomerRecord> allCustomers(CustomerRecord customerRecord) {
 
-        return customerRepository.listAll();
+        return customerRepository.listAll().stream().map(customer -> {
+            return new CustomerRecord(customer.id, customer.email, customer.firstName, customer.lastName);
+        }).collect(Collectors.toList());
     }
 
     @POST@Transactional
-    public Customer addCustomer(Customer customer) {
+    public CustomerRecord addCustomer(CustomerRecord customerRecord) {
+
+        Customer customer = new Customer();
+        customer.email = customerRecord.email();
+        customer.firstName = customerRecord.firstName();
+        customer.lastName = customerRecord.lastName();
 
         customerRepository.persist(customer);
-        return customer;
+        return new CustomerRecord(customer.id, customer.email, customer.firstName, customer.lastName);
     }
 }
