@@ -13,26 +13,18 @@ import java.util.stream.Collectors;
 public class CustomerResource {
 
     @Inject
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
 
     @GET
-    public List<CustomerRecord> allCustomers(CustomerRecord customerRecord) {
+    public List<CustomerRecord> allCustomers() {
 
-        return customerRepository.listAll().stream().map(customer -> {
-            return new CustomerRecord(customer.id, customer.email, customer.firstName, customer.lastName);
-        }).collect(Collectors.toList());
+        return customerService.allCustomers();
     }
 
     @POST@Transactional
     public CustomerRecord addCustomer(CustomerRecord customerRecord) {
 
-        Customer customer = new Customer();
-        customer.email = customerRecord.email();
-        customer.firstName = customerRecord.firstName();
-        customer.lastName = customerRecord.lastName();
-
-        customerRepository.persist(customer);
-        return new CustomerRecord(customer.id, customer.email, customer.firstName, customer.lastName);
+        return customerService.createCustomer(customerRecord);
     }
 }

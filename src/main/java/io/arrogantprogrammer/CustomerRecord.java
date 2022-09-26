@@ -1,4 +1,11 @@
 package io.arrogantprogrammer;
 
-public record CustomerRecord(Long id, String email, String firstName, String lastName) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record CustomerRecord(
+        @JsonProperty("id") Long id,
+        @JsonProperty("email") String email,
+        @JsonProperty("firstName") String firstName,
+        @JsonProperty("lastName") String lastName,
+        @JsonProperty("customerStatus") CustomerStatus customerStatus) {
 }
