@@ -1,5 +1,17 @@
+## Aggregate
+Business logic belongs in the aggregate
+
+## Repositories
+All data access should be through the repository pattern
+
 ## Value Objects
 Java Records make great value objects
+
+## Services
+
+## Hexagonal Architecture
+
+##
 
 # mvc2ddd Project
 
